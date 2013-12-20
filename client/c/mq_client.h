@@ -88,8 +88,8 @@ typedef enum mq_result
 /* mq访问机制 */
 typedef enum mq_lookup
 {
-    MQ_LOOKUP_ORDER =    0,             /* 访问第一个，如不成功则到第二个递推 */
-    MQ_LOOKUP_RANDOM =   1,             /* 随机访问 */
+    MQ_LOOKUP_ORDER =    0,             /* 冷备，轮询方式，如第一个不成功则到第二个递推 */
+    MQ_LOOKUP_RANDOM =   1,             /* 随机访问，如访问节点失败则随机抽取其它服务节点 */
 }mq_lookup_e;
 
 /*********************************************************************************************
