@@ -126,7 +126,11 @@ bool mq_sm_db_write_msg(mq_queue_t *mq_queue, msg_item_t *msg_item)
     {
         log_debug("Current DB file write full; Get next DB file for write");
         /* Write current status to data file befor close it */
-        mq_sm_db_write_file_head(mq_queue);
+        
+        if (mq_queue->cur_wdb.map_mem != NULL){
+            mq_sm_db_write_file_head(mq_queue);
+        }
+        
         if (!get_next_write_file(mq_queue))
         {
             log_error("Get next DB file fail");
