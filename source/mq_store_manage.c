@@ -93,6 +93,13 @@ bool mq_sm_get_data(msg_item_t* msg_item, mq_queue_t* mq_queue)
             mq_queue->cur_rdb.opt_count += 1;
             mq_queue->get_num           += 1;
             mq_queue->unread_count      -= 1;
+            
+            /* fig bug : num is too big too overflow */
+            if (mq_queue->get_num >= mq_queue->maxque)
+            {
+               mq_queue->get_num -= mq_queue->maxque;
+               mq_queue->put_num -= mq_queue->maxque;
+            }
 
             return true;
         }
