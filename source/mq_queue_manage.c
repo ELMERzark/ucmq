@@ -110,7 +110,7 @@ void hash_del_queue(const char* qname)
     {
         log_debug("Del queue [%s]\n", tmp_queue->qname);
         HASH_DEL(g_mq_qlist, tmp_queue); /* user: pointer to deletee */
-        free(tmp_queue);                     /* optional; it¡¯s up to you! */
+        free(tmp_queue);                     /* optional; itï¿½ï¿½s up to you! */
     }
 }
 
@@ -289,7 +289,11 @@ bool mq_qm_del_queue(const char *qname)
     mq_queue_t* tmp_queue = NULL;
 
     tmp_queue = hash_find_queue_by_key(qname);
-
+    
+    if (!mq_sm_rtag_close_file(tmp_queue))
+    {
+        log_warn( "Close queue [%s] rtage file fail", qname);
+    }
     if (!mq_sm_close_db(tmp_queue))
     {
         log_warn("Queue [%s] store closer ... fail", qname);
