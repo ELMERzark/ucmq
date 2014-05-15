@@ -212,7 +212,15 @@ bool get_next_write_file(mq_queue_t *mq_queue)
 {
     uint64_t    next_index;
     char        new_db_fname[MAX_FULL_FILE_NAME_LEN + 1];
-
+    
+    /* Check Storage Free */
+    if (get_storage_free(g_mq_conf.data_file_path) < g_mq_conf.res_store_space)
+    {
+        log_error("No space left on device, free storage [%d]GB",
+                get_storage_free(g_mq_conf.data_file_path));
+        return false;
+    }
+    
     log_debug("Current: read db id[%"PRIu64"], write db id[%"PRIu64"]", 
             mq_queue->cur_rdb.cur_index, mq_queue->cur_wdb.cur_index);
 
@@ -227,14 +235,6 @@ bool get_next_write_file(mq_queue_t *mq_queue)
         munmap(mq_queue->cur_wdb.map_mem, MAX_DB_FILE_SIZE);
         mq_queue->cur_wdb.flag = 0;
         close(mq_queue->cur_wdb.fd);
-    }
-
-    /* Check Storage Free */
-    if (get_storage_free(g_mq_conf.data_file_path) < g_mq_conf.res_store_space)
-    {
-        log_error("No space left on device, free storage [%d]GB",
-                get_storage_free(g_mq_conf.data_file_path));
-        return false;
     }
 
     /* Creat a new write db file */
