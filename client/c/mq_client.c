@@ -117,7 +117,7 @@ struct mq_object* mq_init(const char** server_group ,const int count, int look_u
     }
 
     mq->conn_list = (struct mq_srv*)malloc(sizeof(struct mq_srv) * count);
-    if(mq == NULL)
+    if(mq->conn_list == NULL)
     {
         free(mq);
         return NULL;
