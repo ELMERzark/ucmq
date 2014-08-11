@@ -401,7 +401,7 @@ bool mq_qm_set_maxqueue(mq_queue_t *mq_queue, uint32_t dest_max_queue_size)
 {
     if ((mq_queue == NULL))
     {
-        log_info("Set [%s] max queue fail; Maybe queue is not exist", mq_queue->qname);
+        log_warn("Set max queue fail; Maybe queue is not exist");
         return  false;
     }
     if (dest_max_queue_size < 0)
@@ -423,7 +423,7 @@ bool mq_qm_set_delay(mq_queue_t *mq_queue, uint32_t dest_delay)
 {
     if((mq_queue == NULL))
     {
-        log_warn("set [%s] delay fail, Maybey queue is not exist", mq_queue->qname);
+        log_warn("set delay fail, Maybey queue is not exist");
         return  false;
     }
     if(dest_delay >= 0)
@@ -444,7 +444,7 @@ bool mq_qm_set_wlock(mq_queue_t *mq_queue, uint32_t wlock)
 
     if ((mq_queue == NULL))
     {
-        log_warn("Set [%s] write lock fail; Maybe queue is not exist", mq_queue->qname);
+        log_warn("Set write lock fail; Maybe queue is not exist");
         return  false;
     }
 
