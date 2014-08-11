@@ -152,18 +152,23 @@ struct mq_object* mq_init(const char** server_group ,const int count, int look_u
             }
             else
             {
-                return NULL;
+                goto err;
             }
         }
         else
         {
-            return NULL;
+            goto err;
         }
         mq->conn_list[i].fd       = -1; 
         mq->conn_list[i].timeout  = 0;
         mq->conn_list[i].last_use = 0;
     }  
     return mq;
+
+err:
+    free(mq->conn_list);
+    free(mq);
+    return NULL;
 }
 
 /* fini mq object */
