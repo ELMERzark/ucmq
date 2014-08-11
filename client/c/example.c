@@ -198,11 +198,10 @@ static int handl_result(struct mq_return* pp, const int ver)
     /* If version code is 2 */
     if (ver == 2)
     {
-        if( pp != NULL)
+        if( pp == NULL)
         {
             printf("return inof object creat fail or req error!\n");
             return -1;
-
         }
         printf("-------------\n");
         printf("result: %d\n", pp->result);
@@ -239,9 +238,10 @@ static int handl_result(struct mq_return* pp, const int ver)
     }
     else    /* If version code is not 2 */
     {
-        if( pp != NULL)
+        if( pp == NULL)
         {
             printf("return inof object creat fail or req error!\n");
+            return -1;
         }
         printf("-------------\n");
         printf("result: %d\n", pp->result);
