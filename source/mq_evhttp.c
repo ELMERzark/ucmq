@@ -654,7 +654,7 @@ static void mq_evhttp_cb_do_view_stat(struct evhttp_request *request, void *arg)
     struct evbuffer    *content_out = NULL;
     struct evkeyvalq   http_query_variables;
 
-    assert((content_out = evbuffer_new()));
+    content_out = evbuffer_new();
     mq_evhttp_set_headers(request->output_headers, request->input_headers, "text/html", NULL, 0);
 
     const char* request_uri = evhttp_request_uri(request);
@@ -1510,7 +1510,7 @@ static void mq_evhttp_cb_do_opt_entry(struct evhttp_request *request, void *arg)
     struct evkeyvalq    http_query_variables;
 
     clock_gettime(CLOCK_MONOTONIC, &tm_start);
-    assert((content_out = evbuffer_new()));
+    content_out = evbuffer_new();
     evhttp_connection_set_closecb(request->evcon, mq_evhttp_conn_close, NULL);
 
     /* Get variables from request line, And parse REQ */
