@@ -145,6 +145,8 @@ CFLAGS="$CFLAGS --std=gnu99"
 AC_CHECK_LIB([bz2], [main])
 # FIXME: Replace `main' with a function in `-ldl':
 AC_CHECK_LIB([dl], [main])
+# FIXME: Replace `main' with a function in `-lpthread':
+AC_CHECK_LIB([pthread], [main])
 # FIXME: Replace `main' with a function in `-lm':
 AC_CHECK_LIB([m], [main])
 # FIXME: Replace `main' with a function in `-lnsl':
